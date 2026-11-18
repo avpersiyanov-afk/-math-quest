@@ -13,7 +13,7 @@ function openDay(day){$("weeks").hidden=true;$("weeks").style.display="none";let
 
 
 const autoAnswers={"0":["25"],"1":["45"],"3":["23"],"4":["нет","невозможно"],"5":["46"],"8":["нет","невозможно"],"9":["8","8-й","8 день","на 8 день"],"12":["14"],"13":["нет","невозможно"],"14":["нет","невозможно"],"15":["12"],"16":["7"],"17":["да","можно"],"18":["6"],"19":["20"],"20":["36"],"24":["первый","1"],"25":["второй"],"30":["60"],"34":["10"],"36":["15"],"37":["39"],"39":["нет","невозможно"],"42":["5"],"43":["8"],"45":["15"],"46":["первый","1"]};
-function normalizeAnswer(v){return String(v||"").toLowerCase().replace(/ё/g,"е").replace(/[^\\p{L}\\p{N}]+/gu," ").trim().replace(/\\s+/g," ")}
+function normalizeAnswer(v){return String(v||"").toLowerCase().replace(/ё/g,"е").replace(/[^a-zа-я0-9]+/gi," ").trim().replace(/ +/g," ")}
 function checkAnswer(i,v){const candidates=autoAnswers[i];if(!candidates)return null;const n=normalizeAnswer(v);if(!n)return false;return candidates.some(a=>normalizeAnswer(a)===n)}
 function missionSummary(day){let correct=0,pending=0,wrong=0;for(let j=0;j<3;j++){const i=day*3+j;const verdict=state.review[i];if(verdict==="correct")correct++;else if(verdict==="pending")pending++;else wrong++}return {correct,pending,wrong}}
 function finishMission(day){
